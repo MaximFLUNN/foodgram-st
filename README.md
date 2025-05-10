@@ -48,14 +48,15 @@ cd foodgram-st
 Создайте файл `.env` в корне проекта со следующим содержимым:
 
 ```env
-DB_HOST=db
-DB_PORT=5432
-POSTGRES_USER=foodgram
-POSTGRES_PASSWORD=foodgram
-POSTGRES_DB=foodgram
-ALLOWED_HOSTS=localhost,127.0.0.1,backend
-CSRF_TRUSTED_ORIGINS=http://localhost,http://127.0.0.1
-SECRET_KEY=your_secret_key
+DJANGO_SECRET_KEY='v&%qj3_!a(s*m^2@p9$c+b1!z@_w#x&y8k(f@g!h'
+DJANGO_DEBUG=False
+DJANGO_ALLOWED_HOSTS='localhost,127.0.0.1,backend,your_domain.com'
+
+POSTGRES_DB=foodgram_db
+POSTGRES_USER=foodgram_user
+POSTGRES_PASSWORD='pass'
+
+DATABASE_URL=postgresql://foodgram_user:pass@db:5432/foodgram_db
 ```
 
 ### 3. Сборка и запуск контейнеров
