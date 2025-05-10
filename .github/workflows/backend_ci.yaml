@@ -25,7 +25,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" # Проверка с учетными данными
+          --health-cmd="pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -55,8 +55,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
           pip install flake8 # Устанавливаем Flake8
-          # Если вы используете Black, можно установить и его
-          # pip install black
 
       - name: Wait for database to be ready
         run: |
