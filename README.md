@@ -100,4 +100,8 @@ docker-compose exec backend python manage.py createsuperuser
 - Корзина покупок и избранное реализованы через отдельные модели
 - Возможность скачивания списка покупок в формате `.txt`
 
+## Контакты
+
+Автор: [Максим](https://github.com/MaximFLUNN)
+
 ---

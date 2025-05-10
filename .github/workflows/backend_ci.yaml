@@ -1,0 +1,77 @@
+name: Backend CI
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/backend_ci.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'docker-compose.yml'
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13-alpine
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" # Проверка с учетными данными
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DB_HOST: localhost 
+      DB_PORT: 5432
+      POSTGRES_DB: test_db 
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      DEBUG: True
+      SECRET_KEY: ci-dummy-key
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1
+
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install flake8 # Устанавливаем Flake8
+          # Если вы используете Black, можно установить и его
+          # pip install black
+
+      - name: Wait for database to be ready
+        run: |
+          while ! nc -z ${DB_HOST} ${DB_PORT}; do
+            sleep 1
+          done
+        env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+
+
+      - name: Run lint with flake8
+        run: |
+          flake8 backend/
+
+      - name: Run migrations
+        run: |
+          python backend/manage.py migrate
