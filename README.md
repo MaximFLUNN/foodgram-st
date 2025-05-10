@@ -39,7 +39,7 @@
 ### 1. Клонирование репозитория
 
 ```sh
-git clone <ваш-репозиторий>
+git clone https://github.com/MaximFLUNN/foodgram-st.git
 cd foodgram-st
 ```
 
