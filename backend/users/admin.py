@@ -1,11 +1,18 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, Follow
-from recipes.models import Favorite
+
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = ("email", "username", "first_name", "last_name", "is_staff", "favorites_count")
+    list_display = (
+        "email",
+        "username",
+        "first_name",
+        "last_name",
+        "is_staff",
+        "favorites_count",
+    )
     search_fields = ("email", "username", "first_name", "last_name")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     ordering = ("email",)
