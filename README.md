@@ -86,11 +86,6 @@ docker-compose exec backend python manage.py createsuperuser
 
 - Примеры запросов и тесты доступны в коллекции Postman:
   `postman_collection/foodgram.postman_collection.json`
-- Для проверки кода на стиль используйте:
-  ```sh
-  .\backend\venv\Scripts\activate # Для Windows
-  flake8 .\backend\
-  ```
 
 ## Особенности реализации
 
