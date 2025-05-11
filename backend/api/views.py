@@ -386,5 +386,5 @@ def recipe_short_redirect_view(request, pk: int):
     if not Recipe.objects.filter(pk=pk).exists():
         raise Http404("Рецепт не найден.")
 
-    frontend_recipe_path = f"/recipes/{pk}/"
+    frontend_recipe_path = f"/recipes/{pk}"
     return redirect(frontend_recipe_path, permanent=True)
